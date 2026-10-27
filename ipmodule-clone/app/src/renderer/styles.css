@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── InterviewPilot Design Tokens (extracted from original bundle) ─────── */
+:root {
+  /* Color scales (RGB channels only, used with / alpha-value) */
+  --c-emerald-400: 52 211 153;
+  --c-emerald-500: 16 185 129;
+  --c-violet-400: 167 139 250;
+  --c-violet-500: 139 92 246;
+  --c-teal-300: 94 234 212;
+  --c-teal-400: 45 212 191;
+  --c-teal-500: 20 184 166;
+  --c-teal-600: 13 148 136;
+  --c-blue-400: 96 165 250;
+  --c-blue-500: 59 130 246;
+  --c-red-400: 248 113 113;
+  --c-red-500: 239 68 68;
+  --c-zinc-700: 63 63 70;
+  --c-zinc-800: 39 39 42;
+  --c-zinc-900: 24 24 27;
+  --c-white: 255 255 255;
+  --white-k: 1;
+
+  /* Surface tokens (dark mode defaults) */
+  --surface-rail:   14 15 19;
+  --surface-sunken: 18 19 23;
+  --surface-base:   23 24 28;
+  --surface-raised: 30 31 36;
+  --surface-hover:  38 39 45;
+  --surface-active: 47 48 56;
+  --surface-strong: 57 58 67;
+
+  /* Line tokens */
+  --line-subtle: 33 34 40;
+  --line:        43 44 51;
+  --line-strong: 53 54 63;
+  --line-bright: 67 68 78;
+
+  /* Shadows */
+  --shadow-panel:   0 1px 2px rgba(0,0,0,.35);
+  --shadow-popover: 0 12px 32px -8px rgba(0,0,0,.55), 0 2px 8px -2px rgba(0,0,0,.4);
+  --shadow-overlay: 0 24px 56px -16px rgba(0,0,0,.7), 0 4px 16px -4px rgba(0,0,0,.45);
+
+  /* Scroll bar */
+  --scroll-thumb: 63 63 70;
+  --scroll-thumb-hover: 82 82 91;
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --surface-rail:   245 245 250;
+  --surface-sunken: 240 240 248;
+  --surface-base:   255 255 255;
+  --surface-raised: 248 248 252;
+  --surface-hover:  242 242 248;
+  --surface-active: 236 236 245;
+  --surface-strong: 228 228 238;
+  --line-subtle: 235 235 240;
+  --line:        220 220 230;
+  --line-strong: 205 205 218;
+  --line-bright: 188 188 205;
+  --c-white: 20 20 30;
+  --white-k: 0;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+html, body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: rgb(var(--surface-base));
+  color: rgb(var(--c-white) / calc(0.9 * var(--white-k, 1) + 0.9 * (1 - var(--white-k, 1))));
+}
+
+/* For the overlay window */
+body.overlay-mode {
+  background: transparent !important;
+  pointer-events: none;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+code, kbd, pre, samp {
+  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875em;
+}
+
+/* ─── Scrollbars ──────────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--scroll-thumb)) transparent;
+}
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgb(var(--scroll-thumb)); border-radius: 3px; }
+*::-webkit-scrollbar-thumb:hover { background: rgb(var(--scroll-thumb-hover)); }
+
+/* ─── Utility classes ─────────────────────────────────────────────────────── */
+.overlay-window-content { pointer-events: auto; }
+.no-drag { -webkit-app-region: no-drag; pointer-events: auto !important; }
+.drag { -webkit-app-region: drag; }
+
+/* Surface utilities */
+.bg-surface-rail   { background: rgb(var(--surface-rail)); }
+.bg-surface-sunken { background: rgb(var(--surface-sunken)); }
+.bg-surface-base   { background: rgb(var(--surface-base)); }
+.bg-surface-raised { background: rgb(var(--surface-raised)); }
+.bg-surface-hover  { background: rgb(var(--surface-hover)); }
+.bg-surface-active { background: rgb(var(--surface-active)); }
+.bg-surface-strong { background: rgb(var(--surface-strong)); }
+
+/* text color matching surface-base (for use on white/light buttons) */
+.text-surface-base { color: rgb(var(--surface-base)); }
+
+.border-line-subtle { border-color: rgb(var(--line-subtle)); }
+.border-line        { border-color: rgb(var(--line)); }
+.border-line-strong { border-color: rgb(var(--line-strong)); }
+
+/* White opacity scale */
+.text-white-90  { color: rgb(var(--c-white) / 0.9); }
+.text-white-87  { color: rgb(var(--c-white) / 0.87); }
+.text-white-80  { color: rgb(var(--c-white) / 0.8); }
+.text-white-70  { color: rgb(var(--c-white) / 0.7); }
+.text-white-60  { color: rgb(var(--c-white) / 0.6); }
+.text-white-50  { color: rgb(var(--c-white) / 0.5); }
+.text-white-40  { color: rgb(var(--c-white) / 0.4); }
+.text-white-30  { color: rgb(var(--c-white) / 0.3); }
+.text-white-25  { color: rgb(var(--c-white) / 0.25); }
+.text-white-20  { color: rgb(var(--c-white) / 0.2); }
+
+/* ─── Markdown rendering ─────────────────────────────────────────────────── */
+.prose-ip {
+  @apply text-sm leading-relaxed;
+  color: rgb(var(--c-white) / 0.87);
+}
+.prose-ip h1, .prose-ip h2, .prose-ip h3 {
+  @apply font-semibold mt-4 mb-2;
+  color: rgb(var(--c-white) / 0.95);
+}
+.prose-ip h1 { @apply text-lg; }
+.prose-ip h2 { @apply text-base; }
+.prose-ip h3 { @apply text-sm; }
+.prose-ip p { @apply mb-3; }
+.prose-ip ul, .prose-ip ol { @apply pl-5 mb-3 space-y-1; }
+.prose-ip ul { list-style-type: disc; }
+.prose-ip ol { list-style-type: decimal; }
+.prose-ip code {
+  @apply rounded px-1 py-0.5 text-xs font-mono;
+  background: rgb(var(--surface-strong));
+  color: rgb(var(--c-emerald-400));
+}
+.prose-ip pre {
+  @apply rounded-lg p-3 mb-3 overflow-x-auto;
+  background: rgb(var(--surface-sunken));
+}
+.prose-ip pre code { background: none; color: inherit; padding: 0; }
+.prose-ip blockquote {
+  @apply pl-3 mb-3 italic;
+  border-left: 2px solid rgb(var(--line-strong));
+  color: rgb(var(--c-white) / 0.6);
+}
+.prose-ip table { @apply w-full text-sm mb-3; border-collapse: collapse; }
+.prose-ip th, .prose-ip td { @apply px-3 py-1.5; border: 1px solid rgb(var(--line)); }
+.prose-ip th { background: rgb(var(--surface-raised)); @apply font-medium; }
+
+/* ─── Transitions ─────────────────────────────────────────────────────────── */
+.transition-base { @apply transition-all duration-150 ease-in-out; }
+
+/* ─── Overlay panel (during session) ─────────────────────────────────────── */
+.overlay-panel {
+  pointer-events: auto;
+  border-radius: 12px;
+  background: rgb(var(--surface-base) / 0.93);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgb(var(--line-subtle));
+  box-shadow: var(--shadow-overlay);
+}

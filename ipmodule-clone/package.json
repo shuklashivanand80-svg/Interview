@@ -1,0 +1,19 @@
+{
+  "name": "ipmodule-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "7zip-bin": "^5.2.0",
+    "node-7z": "^3.0.0"
+  },
+  "devDependencies": {
+    "@electron/asar": "^4.3.1"
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "name": "interviewpilot-clone",
+  "version": "1.5.0",
+  "description": "InterviewPilot - AI Interview Copilot (Clone)",
+  "main": "dist-electron/main/main.js",
+  "author": "Clone Project",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "dev:browser": "vite",
+    "build:renderer": "vite build",
+    "build:main": "tsc --project tsconfig.main.json",
+    "build:all": "npm run build:renderer && npm run build:main",
+    "build": "npm run build:all",
+    "dist:win": "npm run build && electron-builder --win nsis --x64",
+    "dist:portable": "npm run build && electron-builder --win portable --x64",
+    "dist:all": "npm run build && electron-builder --win nsis portable --x64",
+    "start": "electron .",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.469.0",
+    "mermaid": "^11.17.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.28.0",
+    "remark-gfm": "^4.0.0",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "jsdom": "^30.1.3",
+    "png-to-ico": "^3.0.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^5.0.5",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.interviewpilot.clone",
+    "productName": "InterviewPilot",
+    "copyright": "Copyright © 2024 InterviewPilot",
+    "asar": true,
+    "directories": {
+      "output": "release",
+      "buildResources": "buildResources"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "dist/renderer/**/*",
+      "public/**/*",
+      "node_modules/**/*",
+      "!node_modules/.cache",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md}",
+      "!**/{.DS_Store,.git,.gitignore,.npmignore}"
+    ],
+    "extraResources": [
+      {
+        "from": "public",
+        "to": "public",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "native/bin",
+        "to": "native",
+        "filter": ["*.dll"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/logo.ico"
+    },
+    "nsis": {
+      "artifactName": "InterviewPilot-Setup.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "installerIcon": "public/logo.ico",
+      "uninstallerIcon": "public/logo.ico",
+      "installerHeaderIcon": "public/logo.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "InterviewPilot",
+      "include": "buildResources/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "InterviewPilot.exe"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/logo.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "public/logo.png"
+    }
+  }
+}
